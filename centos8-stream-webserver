@@ -1,2 +1,32 @@
 setenforce 0
 
+cat >/etc/selinux/config <<EOL
+SELINUX=disabled
+SELINUXTYPE=targeted
+EOL
+
+fallocate -l 2G /swapfile
+
+chmod 600 /swapfile
+
+mkswap /swapfile
+
+swapon /swapfile
+
+cat >>/etc/fstab <<EOL
+/swapfile swap swap defaults 0 0
+EOL
+
+dnf install -y epel-release
+
+dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+dnf install -y nano wget
+
+dnf update -y
+
+
+
+
+
+
