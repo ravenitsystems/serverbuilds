@@ -25,7 +25,7 @@ dnf install -y nano wget
 
 dnf update -y
 
-
+dnf install -y httpd mod_ssl
 
 
 
