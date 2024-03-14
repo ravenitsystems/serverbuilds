@@ -21,7 +21,7 @@ dnf install -y epel-release
 
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
-dnf install -y nano wget
+dnf install -y nano wget git composer
 
 dnf update -y
 
@@ -68,5 +68,13 @@ dnf install -y php72 php72-php-cli php72-php-common php72-php-fpm php72-php-gd p
 dnf install -y php72-php-ast php72-php-bcmath php72-php-imap php72-php-ldap php72-php-mysqlnd php72-php-opcache php72-php-pdo 
 
 dnf install -y php72-php-pecl-env php72-php-pecl-lzf php72-php-pecl-mailparse php72-php-pecl-zip php72-php-process php72-php-soap php72-php-sodium php72-php-xml
+
+rm -f /usr/bin/php
+
+ln -s /usr/bin/php83 /usr/bin/php
+
+
+
+
 
 
