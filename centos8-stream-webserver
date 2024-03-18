@@ -200,9 +200,47 @@ AddDefaultCharset UTF-8
 MIMEMagicFile conf/magic
 EnableSendfile on
 
+DirectoryIndex index.php
 
+<Directory "/var/www/html">
+Options Indexes FollowSymLinks
+AllowOverride None
+Require all granted
+AddType text/html .php
+SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
+<FilesMatch \.(php|phar)$>
+<If "-f %{REQUEST_FILENAME}">
+SetHandler "proxy:unix:/var/opt/remi/php72/run/php-fpm/www.sock|fcgi://localhost"
+</If>
+</FilesMatch>
+</Directory>
 
+<VirtualHost _default_:80>
+ServerName default
+DocumentRoot "/var/www/html"
+ErrorLog logs/ssl_error_log
+TransferLog logs/ssl_access_log
+LogLevel warn
+</VirtualHost>
 
+<VirtualHost _default_:443>
+ServerName default
+DocumentRoot "/var/www/html"
+ErrorLog logs/ssl_error_log
+TransferLog logs/ssl_access_log
+LogLevel warn
+SSLEngine on
+SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+#SSLCertificateChainFile /etc/pki/tls/certs/server-chain.crt
+#SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
+<FilesMatch "\.(cgi|shtml|phtml|php)$">
+SSLOptions +StdEnvVars
+</FilesMatch>
+BrowserMatch "MSIE [2-5]" nokeepalive ssl-unclean-shutdown downgrade-1.0 force-response-1.0
+</VirtualHost>
+
+IncludeOptional vhosts/*.conf
 EOL
 
 
