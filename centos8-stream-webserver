@@ -245,6 +245,14 @@ EOL
 
 dnf install -y mariadb-server mariadb
 
+systemctl start mariadb
+
+systemctl enable mariadb
+
+systemctl start httpd
+
+systemctl enable httpd
+
 
 
 
