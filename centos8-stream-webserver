@@ -21,7 +21,7 @@ dnf install -y epel-release
 
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
-dnf install -y nano wget git composer
+dnf install -y nano wget git composer bind-utils net-tools
 
 dnf update -y
 
