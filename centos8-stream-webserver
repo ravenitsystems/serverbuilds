@@ -253,6 +253,8 @@ systemctl start httpd
 
 systemctl enable httpd
 
+dnf install -y certbot python3-certbot-apache 
+
 
 
 
