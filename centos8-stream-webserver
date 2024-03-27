@@ -200,7 +200,7 @@ AddDefaultCharset UTF-8
 MIMEMagicFile conf/magic
 EnableSendfile on
 
-DirectoryIndex index.php
+DirectoryIndex index.php index.html
 
 <Directory "/var/www/html">
 Options Indexes FollowSymLinks
