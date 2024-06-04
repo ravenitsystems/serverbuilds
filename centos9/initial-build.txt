@@ -1,6 +1,27 @@
-###################################
+###############################################################################
 # CENTOS 9 - INITIAL BUILD
 #
-# Used to set up the essential applications and repositories to start of any new server build
-######################################
+# Used to set up the essential applications and repositories to start of any 
+# new server build. 
+###############################################################################
 
+# Disable SE Linux
+setenforce 0
+
+cat >/etc/selinux/config <<EOL
+SELINUX=disabled
+SELINUXTYPE=targeted
+EOL
+
+# Create a swap space partition, please adjust the size accordingly
+fallocate -l 2G /swapfile
+
+chmod 600 /swapfile
+
+mkswap /swapfile
+
+swapon /swapfile
+
+cat >>/etc/fstab <<EOL
+/swapfile swap swap defaults 0 0
+EOL
