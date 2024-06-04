@@ -1,0 +1,6 @@
+###################################
+# CENTOS 9 - INITIAL BUILD
+#
+# Used to set up the essential applications and repositories to start of any new server build
+######################################
+
