@@ -1,0 +1,4 @@
+
+# Install node and npm
+dnf install -y nodejs npm
+
