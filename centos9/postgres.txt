@@ -18,5 +18,9 @@ sudo -u postgres psql
 # To allow remote access add the following line to the top of the pg_hba.conf file
 host  all  all 0.0.0.0/0 scram-sha-256
 
+# To switch the current working database 
+\connect DBNAME
 
-
+# Example user based commands
+alter user <username> with encrypted password '<password>';
+grant all privileges on database <dbname> to <username> ;
