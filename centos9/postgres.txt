@@ -21,6 +21,9 @@ host  all  all 0.0.0.0/0 scram-sha-256
 # To switch the current working database 
 \connect DBNAME
 
+# List a users permissions
+SELECT * FROM information_schema.role_table_grants WHERE grantee = 'YOUR_USER';
+
 # Example user based commands
 alter user <username> with encrypted password '<password>';
 grant all privileges on database <dbname> to <username> ;
