@@ -11,3 +11,12 @@ systemctl enable postgresql-16
 # To gain access through command line 
 sudo -u postgres psql
 
+# Configuration file is located at 
+/var/lib/pgsql/16/data/postgresql.conf
+/var/lib/pgsql/16/data/pg_hba.conf
+
+# To allow remote access add the following line to the top of the pg_hba.conf file
+host  all  all 0.0.0.0/0 scram-sha-256
+
+
+
