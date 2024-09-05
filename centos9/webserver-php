@@ -5,7 +5,7 @@
 # with a choice of PHP versions and a ready built vhost structure. 
 ###############################################################################
 
-dnf install -y composer
+dnf install -y composer git zip unzip
 
 dnf install -y httpd mod_ssl
 
