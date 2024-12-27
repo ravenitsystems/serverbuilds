@@ -216,3 +216,15 @@ EOL
 
 dnf install -y mariadb-server mariadb
 
+systemctl enable php84-php-fpm
+
+systemctl start php84-php-fpm
+
+systemctl enable httpd
+
+systemctl start httpd
+
+systemctl enable mariadb
+
+systemctl start mariadb
+
