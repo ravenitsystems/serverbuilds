@@ -228,3 +228,5 @@ systemctl enable mariadb
 
 systemctl start mariadb
 
+dnf install -y certbot python3-certbot-apache 
+
