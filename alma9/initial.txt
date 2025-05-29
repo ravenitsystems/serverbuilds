@@ -1,2 +1,31 @@
 # INITIAL SETUP FOR ALMA 9
 
+# Disable SE Linux
+setenforce 0
+
+cat >/etc/selinux/config <<EOL
+SELINUX=disabled
+SELINUXTYPE=targeted
+EOL
+
+# Update to latest packages
+dnf update -y
+
+# Create a swap space partition, please adjust the size accordingly
+fallocate -l 2G /swapfile
+
+chmod 600 /swapfile
+
+mkswap /swapfile
+
+swapon /swapfile
+
+cat >>/etc/fstab <<EOL
+/swapfile swap swap defaults 0 0
+EOL
+
+# Install EPEL software repositories
+dnf install -y epel-release
+
+# Install base utilities 
+dnf install -y nano wget bind-utils net-tools
