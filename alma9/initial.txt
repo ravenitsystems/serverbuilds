@@ -29,3 +29,6 @@ dnf install -y epel-release
 
 # Install base utilities 
 dnf install -y nano wget bind-utils net-tools
+
+# Reboot to install any core changes
+reboot
