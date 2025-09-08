@@ -1,0 +1,15 @@
+wget $(echo "https://pkgs.sysadmins.ws/el9/base/x86_64/raven-release.el9.noarch.rpm" | sed "s/el9/el$(rpm -q --queryformat '%{RELEASE}' rpm | grep -oP 'el\K[0-9]+')/g")
+
+rpm -ivh raven-release*.rpm
+
+dnf clean all && sudo dnf update --assumeyes
+dnf --enablerepo=raven-modular install php73-php -y
+dnf --enablerepo=raven-modular install php72-php -y
+dnf --enablerepo=raven-modular install php71-php -y
+dnf --enablerepo=raven-modular install php70-php -y
+dnf --enablerepo=raven-modular install php56-php -y
+dnf --enablerepo=raven-modular install php73-php-fpm -y
+dnf --enablerepo=raven-modular install php72-php-fpm -y
+dnf --enablerepo=raven-modular install php71-php-fpm -y
+dnf --enablerepo=raven-modular install php70-php-fpm -y
+dnf --enablerepo=raven-modular install php56-php-fpm -y
