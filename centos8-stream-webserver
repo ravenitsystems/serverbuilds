@@ -27,6 +27,23 @@ dnf update -y
 
 dnf install -y httpd mod_ssl
 
+
+dnf install -y php85 php85-php-cli php85-php-common php85-php-fpm php85-php-gd php85-php-intl php85-php-mbstring php85-php-lz4 php85-php-pear 
+
+dnf install -y php85-php-ast php85-php-bcmath php85-php-ffi php85-php-ldap php85-php-mysqlnd php85-php-opcache php85-php-pdo
+
+dnf install -y  php85-php-pecl-lzf php85-php-pecl-mailparse php85-php-pecl-zip php85-php-process php85-php-soap php85-php-sodium php85-php-xml
+
+
+
+dnf install -y php84 php84-php-cli php84-php-common php84-php-fpm php84-php-gd php84-php-intl php84-php-libvirt php84-php-mbstring php84-php-lz4 php84-php-pear 
+
+dnf install -y php84-php-ast php84-php-bcmath php84-php-ffi php84-php-imap php84-php-ldap php84-php-mysqlnd php84-php-opcache php84-php-pdo php84-php-pecl-csv 
+
+dnf install -y php84-php-pecl-env php84-php-pecl-lzf php84-php-pecl-mailparse php84-php-pecl-zip php84-php-process php84-php-soap php84-php-sodium php84-php-xml
+
+
+
 dnf install -y php83 php83-php-cli php83-php-common php83-php-fpm php83-php-gd php83-php-intl php83-php-libvirt php83-php-mbstring php83-php-lz4 php83-php-pear 
 
 dnf install -y php83-php-ast php83-php-bcmath php83-php-ffi php83-php-imap php83-php-ldap php83-php-mysqlnd php83-php-opcache php83-php-pdo php83-php-pecl-csv 
@@ -71,7 +88,7 @@ dnf install -y php72-php-pecl-env php72-php-pecl-lzf php72-php-pecl-mailparse ph
 
 rm -f /usr/bin/php
 
-ln -s /usr/bin/php83 /usr/bin/php
+ln -s /usr/bin/php84 /usr/bin/php
 
 mkdir /etc/httpd/vhosts
 
