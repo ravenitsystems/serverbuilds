@@ -1,0 +1,37 @@
+###############################################################################
+# CENTOS 10 - INITIAL BUILD
+#
+# Used to set up the essential applications and repositories to start of any 
+# new server build. 
+###############################################################################
+
+# Disable SE Linux
+setenforce 0
+
+cat >/etc/selinux/config <<EOL
+SELINUX=disabled
+SELINUXTYPE=targeted
+EOL
+
+# Create a swap space partition, please adjust the size accordingly
+fallocate -l 8G /swapfile
+
+chmod 600 /swapfile
+
+mkswap /swapfile
+
+swapon /swapfile
+
+cat >>/etc/fstab <<EOL
+/swapfile swap swap defaults 0 0
+EOL
+
+# Install software repositories
+
+dnf install -y epel-release
+
+dnf -y install https://rpms.remirepo.net/enterprise/remi-release-10.rpm
+
+# Install base applications
+
+dnf install -y nano wget bind-utils net-tools mc 
