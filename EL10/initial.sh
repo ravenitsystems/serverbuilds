@@ -39,7 +39,7 @@ dnf -y install https://rpms.remirepo.net/enterprise/remi-release-10.rpm
 
 # Install a minimum toolset for system maintinance
 
-dnf install -y nano wget bind-utils net-tools
+dnf install -y nano wget bind-utils net-tools git zip unzip
 
 # Update the system as most ISO files are out of date
 
