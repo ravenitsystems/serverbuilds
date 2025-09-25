@@ -31,6 +31,9 @@ mkdir /etc/httpd/vhosts
 
 cat >/etc/httpd/conf/httpd.conf <<EOL
 ServerRoot "/etc/httpd"
+ServerTokens Prod
+ServerSignature Off
+TraceEnable Off
 Listen 80
 Listen 443 https
 SSLPassPhraseDialog exec:/usr/libexec/httpd-ssl-pass-dialog
