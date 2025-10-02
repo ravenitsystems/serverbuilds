@@ -1,0 +1,3 @@
+
+wait_timeout - Sets in seconds how long a connection can hang for
+max_connections - Sets how many connections can be live at the same time
