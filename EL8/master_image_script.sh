@@ -31,6 +31,35 @@ dnf install -y nano wget bind-utils net-tools git zip unzip tar mc
 
 dnf update -y
 
+cat >/etc/ssh/sshd_config <<EOL
+Port 2227
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+SyslogFacility AUTHPRIV
+LoginGraceTime 1m
+PermitRootLogin yes
+StrictModes yes
+MaxAuthTries 2
+MaxSessions 5
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+Subsystem       sftp    /usr/libexec/openssh/sftp-server
+HostbasedAcceptedKeyTypes ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519
+EOL
+
+systemctl restart sshd
+
 dnf install -y composer
 
 dnf install -y php85 php85-php-ast php85-php-bcmath php85-php-cli php85-php-common php85-php-ffi php85-php-fpm php85-php-gd php85-php-geos php85-php-girgias-csv php85-php-intl php85-php-ldap php85-php-libvirt php85-php-lz4 php85-php-mbstring php85-php-mysqlnd php85-php-opcache php85-php-pdo php85-php-pear php85-php-pecl-env php85-php-pecl-geoip php85-php-pecl-geospatial php85-php-pecl-imagick-im7 php85-php-pecl-imap php85-php-pecl-jsonpath php85-php-pecl-mailparse php85-php-pecl-memcached php85-php-pecl-mongodb2 php85-php-pecl-oauth php85-php-pecl-redis6 php85-php-pecl-rrd php85-php-pecl-ssdeep php85-php-pecl-ssh2 php85-php-pecl-uploadprogress php85-php-pecl-uuid php85-php-pecl-xattr php85-php-pecl-xdebug3 php85-php-pecl-xdiff php85-php-pecl-xlswriter php85-php-pecl-xmldiff php85-php-pecl-yaml php85-php-pecl-zip php85-php-pecl-zmq php85-php-process php85-php-soap php85-php-sodium php85-php-xml
@@ -259,12 +288,103 @@ systemctl enable httpd
 
 systemctl start httpd
 
-# Install MariaDB
 dnf install -y mariadb-server mariadb
+
+cat >/etc/my.cnf.d/mariadb-server.cnf <<EOL
+[server]
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+log-error=/var/log/mariadb/mariadb.log
+pid-file=/run/mariadb/mariadb.pid
+max_connections=2000
+wait_timeout=120
+slow_query_log = 1
+slow-query_log_file = /var/log/mysql-slow.log
+long_query_time = 2
+# Enable for older websites
+#sql_mode=NO_ENGINE_SUBSTITUTION
+[galera]
+[embedded]
+[mariadb]
+[mariadb-10.3]
+EOL
 
 systemctl enable mariadb
 
 systemctl start mariadb
+
+adduser nashley
+
+usermod -aG wheel nashley
+
+mkdir /home/nashley/.ssh
+
+cat >/home/nashley/.ssh/authorized_keys <<EOL
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZYBdHXE8G2YvjTpDCJT674vasNTXMYu0v4r93KrtZFAzPimDcZ6aD2sVtWyxPrg9NVjKA+WQKgXVcpsU/Piz2UcP3p7bycp5pkOmmuAD5iVnvhd9ngu9TXHLFFKeO7Bz0vEfS9N61+lvj/k+oDNxg8uaeD0dF9pRiktqrm/j1ZSJ5XkERvQnYVETAZrA2UkgWiid3Gj4AdO0Uf9a5e1U7/fGIomn0boh+GC7tcgGu8C6U/k40Th1gmMIOiNdaCCnNjL7oAiF15jL2QjHqz3vpD2EU/Su3qtSl9/8oECydDPHjse7tKFqqK8ndhOwaQcqnL5Zjvomrq6KWterYEW5tbAI+6KF69DOorHZ0mbWQsKqxFUsv1fGQCWvEz1L0V8KFBq0nOTzjl6i175zHykvUANdfFbQBchcoV7aIj3mN1Cbws+A3nNre1t5AMhrGYNH4l0JEPgMy7y5pyEGWg9n6GQCAsNL2vDt3HgPBT3xTFs6N+4ni8MjCQKUVXxhktEV3BuuqnTeY99Z+yImnKtUXo2YLYjdYZgoSX4PR7gZHswJ3eTTDyMgRaqU+BRmzREckRAgoKo2aKQvOaJjpvzXCX5K8MTPsgwBEWJjPNXQVw/dztoj+zV7sFIJq7s6Tb4HGCD0MWUSbqRF7hvDTsBRHxpVB+3s/1Utslq+hr6DCzw== ft-nashley-06-25
+EOL
+
+chown -R nashley:nashley /home/nashley
+
+chmod 700 /home/nashley/.ssh
+
+chmod 600 /home/nashley/.ssh/authorized_keys
+
+adduser mlarcombe
+
+usermod -aG wheel mlarcombe
+
+mkdir /home/mlarcombe/.ssh
+
+cat >/home/mlarcombe/.ssh/authorized_keys <<EOL
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDC61t+WwAcTNhzzqWi4KclHUsYT5OkfzzoPowLWHL4DxUitaJNvEerI9+pH/RYlQttjd9mEcSO2tweow1MSMkeg+cjJ1Kcz/Ewp2VrOSlvdq6Yut7F2dy8nd0Ku0/DuCs8yi5ce7LoTLbyBiuHQzHKBie4CtyzIMKg40YH3nVEMRryt3UbnSfWGXZaoVWb6PHqJ1HiUE5m04e74aTRpUhjoqcIqbe/2SxVTc+UIIacpOHEmFegLIXSBUvmyXZ3sP4FRA/zT00hMhwoV3uAOqlCY589/CqMvV/TnQT/7COBJKBdQJ2dWKhKZPaUjplev1G7I75vJdIopJ9u1YtkEH7PEEJRnP7N+W8mn0KfWBzkHqufpmpPOjKvWHeL9UEgUH1BtwD/PdqJg0ySpZ84L/piM/YbqJRNpzMIxKjdMr1cqcVbyWF6bCTTakRos1uieQcnfYpq5naoDaz8g6ncucijJnGv+9yndsB9oAvOcFjHFhIFPfJDVVr6SUzbDfIUC2c= support@uhura
+EOL
+
+chown -R mlarcombe:mlarcombe /home/mlarcombe
+
+chmod 700 /home/mlarcombe/.ssh
+
+chmod 600 /home/mlarcombe/.ssh/authorized_keys
+
+adduser chinton
+
+usermod -aG wheel chinton
+
+mkdir /home/chinton/.ssh
+
+cat >/home/chinton/.ssh/authorized_keys <<EOL
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCUAQB/ZVv0MFqSrP0Y170i+nFKnvfp3YNFOMBAl3hfW6AeSE+1lWoAk/08sX8c3PnHz1d8LBkuC6W/808s5D8vRZdj7ab+p9at9gvzWdarEYM+cZSmN2uTE77DdeEDYLtMNOYbK1Ixdd+77TBnOxP2SbN2WIcd0uguvJb/3IKwRq1Ze49U1HJ1yHGT2uKQI4v9CXCr+dZhRBBnCdBuhY8xeiRvQxGC65N1HH+X5Npvx015Qyg3H194SZWUOtVmyRb95cXOCEEurFuq2IvmLQzOBM9Z1L0uMxSptjpuwhmRg8MiakUegcr3WP4YpfJ8imvl61LLJkNSaPzoYiSExo6T chinton@Quasar
+EOL
+
+chown -R chinton:chinton /home/chinton
+
+chmod 700 /home/chinton/.ssh
+
+chmod 600 /home/chinton/.ssh/authorized_keys
+
+adduser pkaczmarek
+
+usermod -aG wheel pkaczmarek
+
+mkdir /home/pkaczmarek/.ssh
+
+cat >/home/pkaczmarek/.ssh/authorized_keys <<EOL
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDgTqAc6eNEbFp5C44i39fWqnokRH69BLjAqnYHTjsKz3YehNgHYAhobKp+KCyx+Yap0jh7WXKbpy0eIMtlkYtiP9+HICLMTSWm1d847TfEkmlKlrINa1qZyorYI/bWbQjzRh5GVlhIW1zKaG6Jqu214hPF1tHgv3PavK8/hixMSD1g4dWZPhr8m4BgB89hhwlZd998BWzLgXS+lHHAxuQ19FBr7QX1jIKZFSrZH2P7r4XjUo7C9LAgz2/6D2OcUI9oXgcWuut5Fpou9A38R6VRF2rVY/TMEtbbbEWDF4wH3lY1GV51qhh6WFa4kVVYDud2zPb/pGiXTwTr5vOviHXlssRkqoN+Hv+J0FZZDrGxrQkj1UEzZE/rm4/0j8MTzwFdSM1ak2LZamVdaGfcO+W8y672EskxwK0goY5iOhx/BDFWVzZk67vS0braV8mnv7lJxnn9q6LZPdzilhZk9SGJ2lXhBG7xKdvpv4mbjYVJpDgLYGhui2MWGo8HEH/bgd+XAqNasQPjCzKlsphVwQRySkZvASNmpm917ss0wooU13r6p1YPc5j1k4pfJlyMDUHXGjbH8HBcyN9A1Wn8OLqssWXa044Mz75F5ySXDsLFKHWdKKYy8/sHCQlVnQaIz//7XimqoFCeBAR69wJpda6AdZujkrONUmi0Q85/qeTSAw== patkaczmarek@APOLLO
+EOL
+
+chown -R pkaczmarek:pkaczmarek /home/pkaczmarek
+
+chmod 700 /home/pkaczmarek/.ssh
+
+chmod 600 /home/pkaczmarek/.ssh/authorized_keys
+
+dnf install -y clamav clamd clamav-freshclam
+
+freshclam
+
+
+
+
 
 
 
