@@ -382,6 +382,41 @@ dnf install -y clamav clamd clamav-freshclam
 
 freshclam
 
+cat >/etc/freshclam.conf <<EOL
+DatabaseMirror database.clamav.net
+EOL
+
+cat >/etc/clamd.d/scan.conf <<EOL
+DatabaseDirectory /var/lib/clamav
+LocalSocket /run/clamd.scan/clamd.sock
+FixStaleSocket true
+User clamupdate
+LogFile /var/log/clamd.scan
+LogFileMaxSize 2M
+LogTime yes
+LogVerbose no
+ScanMail yes
+ScanArchive yes
+ArchiveBlockEncrypted no
+MaxFileSize 100M
+MaxScanSize 500M
+MaxRecursion 16
+MaxFiles 10000
+EOL
+
+mkdir -p /run/clamd.scan
+
+chown clamupdate:clamupdate /run/clamd.scan
+
+chmod 750 /run/clamd.scan
+
+systemctl start clamd@scan
+
+systemctl enable clamd@scan
+
+systemctl enable clamav-freshclam
+
+systemctl start clamav-freshclam
 
 
 
