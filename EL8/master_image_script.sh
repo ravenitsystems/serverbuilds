@@ -418,6 +418,15 @@ systemctl enable clamav-freshclam
 
 systemctl start clamav-freshclam
 
+rpm -Uvh https://repo.zabbix.com/zabbix/7.4/release/alma/8/noarch/zabbix-release-latest-7.4.el8.noarch.rpm
+
+dnf install zabbix-agent2 -y
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+source .bashrc
+
+dnf install GeoIP
 
 
 
