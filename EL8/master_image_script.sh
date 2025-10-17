@@ -627,8 +627,19 @@ cat >>/etc/crontab <<EOL
 05 2 * * * root  aide --update; mv -f /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 EOL
 
+dnf install -y logrotate
 
-
+cat >>/etc/logrotate.d/sites <<EOL
+/var/www/*/logs/*_log {
+    missingok
+    notifempty
+    sharedscripts
+    delaycompress
+    postrotate
+        /bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true
+    endscript
+}
+EOL
 
 dnf install GeoIP geoipupdate
 
