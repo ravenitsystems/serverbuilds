@@ -129,9 +129,10 @@ SSLPassPhraseDialog exec:/usr/libexec/httpd-ssl-pass-dialog
 SSLSessionCache shmcb:/run/httpd/sslcache(512000)
 SSLSessionCacheTimeout 300
 SSLCryptoDevice builtin
+SSLProtocol all -SSLv2 -SSLv3
 SSLHonorCipherOrder on
-SSLCipherSuite PROFILE=SYSTEM
-SSLProxyCipherSuite PROFILE=SYSTEM
+SSLCipherSuite HIGH:!aNULL:!MD5:!RC4
+SSLProxyCipherSuite HIGH:!aNULL:!MD5:!RC4
 LoadModule access_compat_module modules/mod_access_compat.so
 LoadModule actions_module modules/mod_actions.so
 LoadModule alias_module modules/mod_alias.so
@@ -422,9 +423,212 @@ rpm -Uvh https://repo.zabbix.com/zabbix/7.4/release/alma/8/noarch/zabbix-release
 
 dnf install zabbix-agent2 -y
 
+cat >/etc/zabbix/zabbix_agent2.conf <<EOL
+PidFile=/run/zabbix/zabbix_agent2.pid
+LogFile=/var/log/zabbix/zabbix_agent2.log
+LogFileSize=0
+Server=zabbix.freetimers.net
+ListenPort=10050
+ServerActive=127.0.0.1
+Hostname=Zabbix server
+PluginSocket=/run/zabbix/agent.plugin.sock
+ControlSocket=/run/zabbix/agent.sock
+Include=/etc/zabbix/zabbix_agent2.d/plugins.d/*.conf
+Include=/etc/zabbix/zabbix_agent2.d/*.conf
+EOL
+
+systemctl restart zabbix-agent2
+
+systemctl enable zabbix-agent2
+
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 source .bashrc
+
+yum install aide -y
+
+cat >/etc/aide.conf <<EOL
+@@define DBDIR /var/lib/aide
+@@define LOGDIR /var/log/aide
+database=file:@@{DBDIR}/aide.db.gz
+database_out=file:@@{DBDIR}/aide.db.new.gz
+gzip_dbout=yes
+verbose=5
+report_url=file:@@{LOGDIR}/aide.log
+report_url=stdout
+ALLXTRAHASHES = sha1+rmd160+sha256+sha512+tiger
+EVERYTHING = R+ALLXTRAHASHES
+NORMAL = p+i+n+u+g+s+m+c+acl+selinux+xattrs+sha512
+DIR = p+i+n+u+g+acl+selinux+xattrs
+PERMS = p+u+g+acl+selinux+xattrs
+LOG = p+u+g+n+S+acl+selinux+xattrs
+CONTENT = sha512+ftype
+CONTENT_EX = sha512+ftype+p+u+g+n+acl+selinux+xattrs
+DATAONLY =  p+n+u+g+s+acl+selinux+xattrs+sha512
+/boot       CONTENT_EX
+/opt        CONTENT
+/root/\..* PERMS
+/root   CONTENT_EX
+!/usr/src
+!/usr/tmp
+/usr    CONTENT_EX
+/etc/hosts$      CONTENT_EX
+/etc/host.conf$  CONTENT_EX
+/etc/hostname$   CONTENT_EX
+/etc/issue$      CONTENT_EX
+/etc/issue.net$  CONTENT_EX
+/etc/protocols$  CONTENT_EX
+/etc/services$   CONTENT_EX
+/etc/localtime$  CONTENT_EX
+/etc/alternatives CONTENT_EX
+/etc/sysconfig   CONTENT_EX
+/etc/mime.types$ CONTENT_EX
+/etc/terminfo    CONTENT_EX
+/etc/exports$    CONTENT_EX
+/etc/fstab$      CONTENT_EX
+/etc/passwd$     CONTENT_EX
+/etc/group$      CONTENT_EX
+/etc/gshadow$    CONTENT_EX
+/etc/shadow$     CONTENT_EX
+/etc/subgid$     CONTENT_EX
+/etc/subuid$     CONTENT_EX
+/etc/security/opasswd$ CONTENT_EX
+/etc/skel        CONTENT_EX
+/etc/subuid$     CONTENT_EX
+/etc/subgid$     CONTENT_EX
+/etc/sssd        CONTENT_EX
+/etc/machine-id$ CONTENT_EX
+/etc/swid        CONTENT_EX
+/etc/system-release-cpe$ CONTENT_EX
+/etc/shells$     CONTENT_EX
+/etc/tmux.conf$  CONTENT_EX
+/etc/xattr.conf$ CONTENT_EX
+/etc/hosts.allow$   CONTENT_EX
+/etc/hosts.deny$    CONTENT_EX
+/etc/firewalld      CONTENT_EX
+!/etc/NetworkManager/system-connections
+/etc/NetworkManager CONTENT_EX
+/etc/networks$ CONTENT_EX
+/etc/dhcp CONTENT_EX
+/etc/wpa_supplicant CONTENT_EX
+/etc/resolv.conf$ DATAONLY
+/etc/nscd.conf$ CONTENT_EX
+/etc/login.defs$ CONTENT_EX
+/etc/libuser.conf$ CONTENT_EX
+/var/log/faillog$ PERMS
+/var/log/lastlog$ PERMS
+/var/run/faillock PERMS
+/etc/pam.d CONTENT_EX
+/etc/security CONTENT_EX
+/etc/securetty$ CONTENT_EX
+/etc/polkit-1 CONTENT_EX
+/etc/sudo.conf$ CONTENT_EX
+/etc/sudoers$ CONTENT_EX
+/etc/sudoers.d CONTENT_EX
+/etc/profile$ CONTENT_EX
+/etc/profile.d CONTENT_EX
+/etc/bashrc$ CONTENT_EX
+/etc/bash_completion.d CONTENT_EX
+/etc/zprofile$ CONTENT_EX
+/etc/zshrc$ CONTENT_EX
+/etc/zlogin$ CONTENT_EX
+/etc/zlogout$ CONTENT_EX
+/etc/X11 CONTENT_EX
+/etc/dnf CONTENT_EX
+/etc/yum.conf$ CONTENT_EX
+/etc/yum CONTENT_EX
+/etc/yum.repos.d CONTENT_EX
+!/var/log/sa
+!/var/log/aide.log
+/var/log/audit PERMS
+/etc/audit CONTENT_EX
+/etc/libaudit.conf$ CONTENT_EX
+/etc/aide.conf$  CONTENT_EX
+/etc/rsyslog.conf$ CONTENT_EX
+/etc/rsyslog.d CONTENT_EX
+/etc/logrotate.conf$ CONTENT_EX
+/etc/logrotate.d CONTENT_EX
+/etc/systemd/journald.conf$ CONTENT_EX
+/var/log LOG+ANF+ARF
+/var/run/utmp LOG
+/etc/pkcs11 CONTENT_EX
+/etc/pki CONTENT_EX
+/etc/crypto-policies CONTENT_EX
+/etc/certmonger CONTENT_EX
+/var/lib/systemd/random-seed$ PERMS
+/etc/systemd CONTENT_EX
+/etc/rc.d CONTENT_EX
+/etc/tmpfiles.d CONTENT_EX
+/etc/default CONTENT_EX
+/etc/grub.d CONTENT_EX
+/etc/dracut.conf$ CONTENT_EX
+/etc/dracut.conf.d CONTENT_EX
+/etc/ld.so.cache$ CONTENT_EX
+/etc/ld.so.conf$ CONTENT_EX
+/etc/ld.so.conf.d CONTENT_EX
+/etc/ld.so.preload$ CONTENT_EX
+/etc/sysctl.conf$ CONTENT_EX
+/etc/sysctl.d CONTENT_EX
+/etc/modprobe.d CONTENT_EX
+/etc/modules-load.d CONTENT_EX
+/etc/depmod.d CONTENT_EX
+/etc/udev CONTENT_EX
+/etc/crypttab$ CONTENT_EX
+/var/spool/at CONTENT
+/etc/at.allow$ CONTENT
+/etc/at.deny$ CONTENT
+/var/spool/anacron CONTENT
+/etc/anacrontab$ CONTENT_EX
+/etc/cron.allow$ CONTENT_EX
+/etc/cron.deny$ CONTENT_EX
+/etc/cron.d CONTENT_EX
+/etc/cron.daily CONTENT_EX
+/etc/cron.hourly CONTENT_EX
+/etc/cron.monthly CONTENT_EX
+/etc/cron.weekly CONTENT_EX
+/etc/crontab$ CONTENT_EX
+/var/spool/cron/root CONTENT
+/etc/chrony.conf$ CONTENT_EX
+/etc/chrony.keys$ CONTENT_EX
+/etc/aliases$ CONTENT_EX
+/etc/aliases.db$ CONTENT_EX
+/etc/postfix CONTENT_EX
+/etc/ssh/sshd_config$ CONTENT_EX
+/etc/ssh/ssh_config$ CONTENT_EX
+/etc/stunnel CONTENT_EX
+/etc/cups CONTENT_EX
+/etc/cupshelpers CONTENT_EX
+/etc/avahi CONTENT_EX
+/etc/httpd CONTENT_EX
+/etc/named CONTENT_EX
+/etc/named.conf$ CONTENT_EX
+/etc/named.iscdlv.key$ CONTENT_EX
+/etc/named.rfc1912.zones$ CONTENT_EX
+/etc/named.root.key$ CONTENT_EX
+/etc/xinetd.conf$ CONTENT_EX
+/etc/xinetd.d CONTENT_EX
+/etc/ipsec.conf$ CONTENT_EX
+/etc/ipsec.secrets$ CONTENT_EX
+/etc/ipsec.d CONTENT_EX
+/etc/usbguard CONTENT_EX
+!/etc/mtab$
+!/etc/.*~
+/etc    PERMS
+!/var/log/and-httpd
+/root/\..* PERMS
+!/root/.xauth*
+EOL
+
+aide --init
+
+mv -f /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+
+cat >>/etc/crontab <<EOL
+05 2 * * * root  aide --update; mv -f /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+EOL
+
+
+
 
 dnf install GeoIP geoipupdate
 
