@@ -6,7 +6,7 @@
 
 dnf install -y composer
 
-dnf -y install https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+dnf -y install https://rpms.remirepo.net/enterprise/remi-release-10.rpm
 
 # Install PHP 8.4
 dnf install -y php84 php84-php-cli php84-php-common php84-php-fpm php84-php-gd php84-php-intl php84-php-libvirt php84-php-mbstring php84-php-lz4 php84-php-pear
