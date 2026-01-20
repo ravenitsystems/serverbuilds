@@ -8,6 +8,19 @@ dnf install -y composer
 
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-10.rpm
 
+# Install PHP 8.5
+dnf install -y php85 php85-php-cli php85-php-common php85-php-fpm php85-php-gd php85-php-intl php85-php-libvirt php85-php-mbstring php85-php-lz4 php85-php-pear
+
+dnf install -y php85-php-ast php85-php-bcmath php85-php-ffi php85-php-pecl-imap php85-php-ldap php85-php-mysqlnd php85-php-opcache php85-php-pdo php85-php-pecl-csv
+
+dnf install -y php85-php-pecl-env php85-php-pecl-lzf php85-php-pecl-mailparse php85-php-pecl-zip php85-php-process php85-php-soap php85-php-sodium php85-php-xml
+
+dnf install -y php85-php-pgsql php85-php-phpiredis php85-php-pecl-uuid
+
+systemctl enable php85-php-fpm
+
+systemctl start php85-php-fpm
+
 # Install PHP 8.4
 dnf install -y php84 php84-php-cli php84-php-common php84-php-fpm php84-php-gd php84-php-intl php84-php-libvirt php84-php-mbstring php84-php-lz4 php84-php-pear
 
