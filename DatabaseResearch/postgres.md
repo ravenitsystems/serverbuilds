@@ -15,3 +15,5 @@ systemctl start postgresql
 systemctl enable postgresql
 ```
 
+The configuration files are stored in `/var/lib/pgsql/data`
+
