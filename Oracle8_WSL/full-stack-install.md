@@ -90,10 +90,10 @@ wsl
 ```
 
 ## Create an SSL certificate 
-We are going to create a wildcard SSL certificate which is self signed so we can set it to be trusted by the local system, this way we can operate in true https mode without messing with remote certificate authorities.
+Put in pre-baked SSL certificates that will need to be set as trusted on the host computer
 
 ```
-trust anchor --remove "*.local.com".crt || true
+
 ```
 
 ## Install the LAMP stack 
