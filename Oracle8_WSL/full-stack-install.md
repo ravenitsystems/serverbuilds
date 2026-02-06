@@ -89,7 +89,9 @@ To restart WSL service we simply need to enter the linux subsystem, this is the 
 wsl
 ```
 
-## Install PHP versions
+## Install the LAMP stack 
+
+### Install PHP versions
 
 Install all the versions of PHP that you will need, you can miss out the ones you are not going to utilise, you needc to be in super user mode to run these commands
 
@@ -218,6 +220,8 @@ systemctl enable php56-php-fpm
 systemctl start php56-php-fpm
 ```
 
+### Install & configure PHP tools
+
 Install composer 
 ```
 dnf install -y composer
@@ -230,8 +234,7 @@ rm -f /usr/bin/php
 ln -s /usr/bin/php85 /usr/bin/php
 ```
 
-# Install Apache with configuration 
-
+### Install Apache with configuration 
 
 ```
 dnf install -y httpd mod_ssl mod_http2
@@ -408,5 +411,9 @@ systemctl enable httpd
 
 systemctl start httpd
 ```
+
+### Install mysql server and command line client
+
+
 
 
