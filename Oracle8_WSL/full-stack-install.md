@@ -499,7 +499,7 @@ systemctl enable redis
 
 ## Install the create vhost script
 ```
-cat >/etc/httpd/conf/httpd.conf <<EOL
+cat >/root/create-vhost.php <<EOL
 <?php
 const APACHE_VHOST_DIRECTORY = '/etc/httpd/vhosts';
 const WEB_APPLICATIONS_DIRECTORY = '/var/www';
