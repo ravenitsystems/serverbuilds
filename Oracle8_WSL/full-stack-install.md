@@ -44,10 +44,52 @@ Now we go back into the newly restarted WSL subsystem
 wsl
 ```
 
-You should now see the linux style prompt with your username, again we want to jump into super user mode so we can execture the next collection of commanmds:
+You should now see the linux style prompt with your username, again we want to jump into super user mode so we can execture the next collection of commanmds, again you will be prompted for the password:
 ```
 sudo -i
 ```
+
+You should now see the linux style command prompt with root as the username, this means we are ready to do the rest of the setup. This next step will update the instance as well as install basic tools and repositories:
+```
+setenforce 0
+
+cat >/etc/selinux/config <<EOL
+SELINUX=disabled
+SELINUXTYPE=targeted
+EOL
+
+dnf install -y epel-release
+
+/usr/bin/crb enable
+
+dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+
+dnf install -y nano wget bind-utils net-tools git zip unzip tar
+
+dnf update -y
+```
+
+After that process is completed, it will take some time, we need to exit out of super user mode just like we did before:
+```
+exit
+```
+
+You should now see the linux prompt with your chosen username, we need to exit out of WSL entirely so we can exectute container commands:
+```
+exit
+```
+
+You should now see the windows based command line, we want to restart the linux subsystem so any changes to the linux care are loaded
+```
+wsl --shutdown
+```
+
+To restart WSL service we simply need to enter the linux subsystem, this is the last step which will leave you logged in your user for the next steps
+```
+wsl
+```
+
+
 
 
 
