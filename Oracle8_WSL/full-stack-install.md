@@ -24,4 +24,15 @@ systemd=true
 EOL
 ```
 
+Now we need to jump back from super user mode, we do this by simply exiting the current session
+```
+exit
+```
+
+You should now see that the prompt has changed back to your username, now we exit WSL using the same command:
+```
+exit
+```
+
+
 
