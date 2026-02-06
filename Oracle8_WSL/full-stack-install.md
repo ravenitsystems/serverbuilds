@@ -64,7 +64,7 @@ dnf install -y epel-release
 
 dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 
-dnf install -y nano wget bind-utils net-tools git zip unzip tar
+dnf install -y nano wget bind-utils net-tools git zip unzip tar rsync 
 
 dnf update -y
 ```
@@ -216,6 +216,11 @@ dnf install -y php56-php php56-php-bcmath php56-php-cli php56-php-common php56-p
 systemctl enable php56-php-fpm
 
 systemctl start php56-php-fpm
+```
+
+Install composer 
+```
+dnf install -y composer
 ```
 
 Now we set the default version of PHP on the command line by making the php executable into a symbolic link to a version of PHP. The default its 8.5 but it can be changhed to whatever suits
