@@ -34,5 +34,20 @@ You should now see that the prompt has changed back to your username, now we exi
 exit
 ```
 
+Now you should see that the prompt has switched back to the windows prompt meaning we are outside of the WSL container. We now want to shut down WSL so the next time we go into the container it will have restarted.
+```
+wsl --shutdown
+```
+
+Now we go back into the newly restarted WSL subsystem 
+```
+wsl
+```
+
+You should now see the linux style prompt with your username, again we want to jump into super user mode so we can execture the next collection of commanmds:
+```
+sudo -i
+```
+
 
 
