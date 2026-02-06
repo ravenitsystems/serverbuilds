@@ -11,10 +11,14 @@ wsl --install OracleLinux_8_10
 ```
 You will then be prompted to enter a username and then a password twice to confirm, you will then be inside the WSL container. We then need to enable systemd you will be asked to confirm your password
 ```
-sudo cat >/etc/wsl.conf <<EOL
+sudo -i
+
+cat >/etc/wsl.conf <<EOL
 [boot]
 systemd=true
 EOL
+
+exit
 
 exit
 ```
