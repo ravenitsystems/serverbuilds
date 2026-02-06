@@ -89,6 +89,13 @@ To restart WSL service we simply need to enter the linux subsystem, this is the 
 wsl
 ```
 
+## Create an SSL certificate 
+We are going to create a wildcard SSL certificate which is self signed so we can set it to be trusted by the local system, this way we can operate in true https mode without messing with remote certificate authorities.
+
+```
+trust anchor --remove "*.local.com".crt || true
+```
+
 ## Install the LAMP stack 
 
 ### Install PHP versions
@@ -414,6 +421,14 @@ systemctl start httpd
 
 ### Install mysql server and command line client
 
+This must be ran as the root user inside the linux sub system, this installs the mysql software and configures the service to start on boot
+```
+dnf install -y mariadb-server mariadb
+
+systemctl enable mariadb
+
+systemctl start mariadb
+```
 
 
 
