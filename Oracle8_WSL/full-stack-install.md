@@ -9,7 +9,14 @@ This is to be done in windows command line:
 ```
 wsl --install OracleLinux_8_10
 ```
-You will then be prompted to enter a username and then a password twice to confirm, you will then be inside the WSL container. We then need to enable systemd you will be asked to confirm your password
+You will then be prompted to enter a username and then a password twice to confirm, you will then be inside the WSL container. 
+
+We now need to enter super user mode, you will be asked to confirm your password:
+```
+sudo -i
+```
+
+
 ```
 sudo -i
 
