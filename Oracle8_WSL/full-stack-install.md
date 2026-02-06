@@ -181,7 +181,8 @@ systemctl start php80-php-fpm
 ```
 
 PHP Version 7.4
-```dnf install -y php74 php74-php-cli php74-php-common php74-php-fpm php74-php-gd php74-php-intl php74-php-libvirt php74-php-mbstring php74-php-lz4 php74-php-pear
+```
+dnf install -y php74 php74-php-cli php74-php-common php74-php-fpm php74-php-gd php74-php-intl php74-php-libvirt php74-php-mbstring php74-php-lz4 php74-php-pear
 
 dnf install -y php74-php-ast php74-php-bcmath php74-php-ffi php74-php-imap php74-php-ldap php74-php-mysqlnd php74-php-opcache php74-php-pdo php74-php-pecl-csv
 
