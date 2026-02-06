@@ -16,18 +16,12 @@ Now we are inside the WSL container we need to enter super user mode, you will b
 sudo -i
 ```
 
-
+You should the the prompt has chaged to root, this means we can access the internal system configuration without being prompted for the password each time we do something. The next step is to enable systemd which is vital to the rest of the process.
 ```
-sudo -i
-
 cat >/etc/wsl.conf <<EOL
 [boot]
 systemd=true
 EOL
-
-exit
-
-exit
 ```
 
 
