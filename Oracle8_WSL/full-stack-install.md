@@ -431,5 +431,17 @@ systemctl enable mariadb
 systemctl start mariadb
 ```
 
+## Install Redis and start the service
+```
+yum module enable redis:6
+
+dnf install -y redis
+
+systemctl start redis
+
+systemctl enable redis
+
+```
+
 
 
