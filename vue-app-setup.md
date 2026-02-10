@@ -1,6 +1,8 @@
 
 Install the vue modules
+```
 npm install vue@latest vue-router@latest @vitejs/plugin-vue
+```
 
 vite.config.js
 ```
@@ -30,4 +32,36 @@ export default defineConfig({
     },
 });
 ```
+
+Create a new file with path ./resources/js/App.vue
+```
+<template>
+    <h2>
+        Main App Component
+    </h2>
+</template>
+```
+
+Edit the ./resources/js/app.js file to be like
+```
+import "./bootstrap";
+import { createApp } from "vue";
+
+import App from "./App.vue";
+
+createApp(App).mount("#app");
+```
+
+Edit the ./resources/views/welcome.blade.php
+```
+<head>
+    @vite(['resources/js/app.js'])
+    @vite(['resources/css/app.css'])
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+```
+
 
