@@ -164,6 +164,8 @@ dnf install -y php85-php-ast php85-php-bcmath php85-php-ffi php85-php-pecl-imap 
 
 dnf install -y php85-php-pecl-env php85-php-pecl-lzf php85-php-pecl-mailparse php85-php-pecl-zip php85-php-process php85-php-soap php85-php-sodium php85-php-xml
 
+dnf install -y php85-php-pecl-redis6
+
 systemctl enable php85-php-fpm
 
 systemctl start php85-php-fpm
@@ -176,6 +178,8 @@ dnf install -y php84 php84-php-cli php84-php-common php84-php-fpm php84-php-gd p
 dnf install -y php84-php-ast php84-php-bcmath php84-php-ffi php84-php-pecl-imap php84-php-ldap php84-php-mysqlnd php84-php-opcache php84-php-pdo php84-php-pecl-csv
 
 dnf install -y php84-php-pecl-env php84-php-pecl-lzf php84-php-pecl-mailparse php84-php-pecl-zip php84-php-process php84-php-soap php84-php-sodium php84-php-xml
+
+dnf install -y php84-php-pecl-redis6
 
 systemctl enable php84-php-fpm
 
@@ -190,6 +194,8 @@ dnf install -y php83-php-ast php83-php-bcmath php83-php-ffi php83-php-imap php83
 
 dnf install -y php83-php-pecl-env php83-php-pecl-lzf php83-php-pecl-mailparse php83-php-pecl-zip php83-php-process php83-php-soap php83-php-sodium php83-php-xml
 
+dnf install -y php83-php-pecl-redis6
+
 systemctl enable php83-php-fpm
 
 systemctl start php83-php-fpm
@@ -202,6 +208,8 @@ dnf install -y php82 php82-php-cli php82-php-common php82-php-fpm php82-php-gd p
 dnf install -y php82-php-ast php82-php-bcmath php82-php-ffi php82-php-imap php82-php-ldap php82-php-mysqlnd php82-php-opcache php82-php-pdo php82-php-pecl-csv
 
 dnf install -y php82-php-pecl-env php82-php-pecl-lzf php82-php-pecl-mailparse php82-php-pecl-zip php82-php-process php82-php-soap php82-php-sodium php82-php-xml
+
+dnf install -y php82-php-pecl-redis6
 
 systemctl enable php82-php-fpm
 
@@ -216,6 +224,8 @@ dnf install -y php81-php-ast php81-php-bcmath php81-php-ffi php81-php-imap php81
 
 dnf install -y php81-php-pecl-env php81-php-pecl-lzf php81-php-pecl-mailparse php81-php-pecl-zip php81-php-process php81-php-soap php81-php-sodium php81-php-xml
 
+dnf install -y php81-php-pecl-redis6
+
 systemctl enable php81-php-fpm
 
 systemctl start php81-php-fpm
@@ -228,6 +238,8 @@ dnf install -y php80 php80-php-cli php80-php-common php80-php-fpm php80-php-gd p
 dnf install -y php80-php-ast php80-php-bcmath php80-php-ffi php80-php-imap php80-php-ldap php80-php-mysqlnd php80-php-opcache php80-php-pdo php80-php-pecl-csv
 
 dnf install -y php80-php-pecl-env php80-php-pecl-lzf php80-php-pecl-mailparse php80-php-pecl-zip php80-php-process php80-php-soap php80-php-sodium php80-php-xml
+
+dnf install -y php80-php-pecl-redis6
 
 systemctl enable php80-php-fpm
 
@@ -242,6 +254,8 @@ dnf install -y php74-php-ast php74-php-bcmath php74-php-ffi php74-php-imap php74
 
 dnf install -y php74-php-pecl-env php74-php-pecl-lzf php74-php-pecl-mailparse php74-php-pecl-zip php74-php-process php74-php-soap php74-php-sodium php74-php-xml
 
+dnf install -y php74-php-pecl-redis6
+
 systemctl enable php74-php-fpm
 
 systemctl start php74-php-fpm
@@ -254,6 +268,8 @@ dnf install -y php73 php73-php-cli php73-php-common php73-php-fpm php73-php-gd p
 dnf install -y php73-php-ast php73-php-bcmath php73-php-imap php73-php-ldap php73-php-mysqlnd php73-php-opcache php73-php-pdo php73-php-pecl-csv
 
 dnf install -y php73-php-pecl-env php73-php-pecl-lzf php73-php-pecl-mailparse php73-php-pecl-zip php73-php-process php73-php-soap php73-php-sodium php73-php-xml
+
+dnf install -y php73-php-pecl-redis6
 
 systemctl enable php73-php-fpm
 
@@ -268,6 +284,8 @@ dnf install -y php72-php-ast php72-php-bcmath php72-php-imap php72-php-ldap php7
 
 dnf install -y php72-php-pecl-env php72-php-pecl-lzf php72-php-pecl-mailparse php72-php-pecl-zip php72-php-process php72-php-soap php72-php-sodium php72-php-xml
 
+dnf install -y php72-php-pecl-redis6
+
 systemctl enable php72-php-fpm
 
 systemctl start php72-php-fpm
@@ -276,6 +294,8 @@ systemctl start php72-php-fpm
 PHP Version 5.6
 ```
 dnf install -y php56-php php56-php-bcmath php56-php-cli php56-php-common php56-php-fpm php56-php-gd php56-php-geos php56-php-imap php56-php-intl php56-php-ldap php56-php-lz4 php56-php-mbstring php56-php-mcrypt php56-php-mysqlnd php56-php-opcache php56-php-pdo php56-php-pear php56-php-pecl-env php56-php-pecl-imagick-im7 php56-php-pecl-jsond php56-php-pecl-mailparse php56-php-pecl-memcached php56-php-pecl-oauth php56-php-pecl-redis4 php56-php-pecl-uploadprogress php56-php-pecl-xattr php56-php-pecl-xdiff php56-php-pecl-xmldiff php56-php-pecl-yaml php56-php-pecl-zip php56-php-phpiredis php56-php-process php56-php-soap php56-php-xml
+
+dnf install -y php56-php-pecl-redis4
 
 systemctl enable php56-php-fpm
 
