@@ -51,12 +51,13 @@ We then need to add a user so we can gain access after the mode change, we will 
 ```
 db.createUser(
   {
-  user: "administrator",
+  user: "administrator2",
   pwd: "password",
-  roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  roles: [ { role: "userAdminAnyDatabase", db: "admin" }, { role: "readWriteAnyDatabase", db: "admin" } ]
   }
 )
 ```
+
 
 We can test what users we have on the system using the following command:
 ```
@@ -114,3 +115,8 @@ Now the mongo installation will be in authenticate mode and will block commands 
 ```
 db.auth('administrator', 'password')
 ```
+
+
+
+
+// 
