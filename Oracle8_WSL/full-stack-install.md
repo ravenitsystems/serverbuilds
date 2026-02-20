@@ -517,6 +517,24 @@ systemctl enable redis
 
 ```
 
+## Install Mongodb and start the service
+```
+cat >/etc/yum.repos.d/mongodb.repo <<EOL
+[mongodb-org-5.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/5.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+EOL
+
+yum install -y mongodb-org
+
+systemctl start mongod
+
+systemctl enable mongod
+```
+
 ## Install the create vhost script
 ```
 cat >/root/create-vhost.php <<EOL
