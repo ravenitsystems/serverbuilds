@@ -36,8 +36,8 @@ We then need to add a user so we can gain access after the mode change, we will 
 ```
 db.createUser(
   {
-  user: "mongod_admin",
-  pwd: "Pa55w0rd!!",
+  user: "administrator",
+  pwd: "password",
   roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
   }
 )
@@ -51,6 +51,12 @@ show users
 Now we should exit mongo db shell utility to get back to our root SSH prompt, we now need to change the configuration of the mongodb service to enforce authentication.
 ```
 cat >/lib/systemd/system/mongod.service <<EOL
+[Unit]
+Description=MongoDB Database Server
+Documentation=https://docs.mongodb.org/manual
+After=network-online.target
+Wants=network-online.target
+
 [Service]
 User=mongod
 Group=mongod
@@ -80,9 +86,11 @@ TasksAccounting=false
 [Install]
 WantedBy=multi-user.target
 EOL
+```
 
+Then we restart the services and restart mongodb
+```
 systemctl daemon-reload
 
 systemctl restart mongod
-
 ```
