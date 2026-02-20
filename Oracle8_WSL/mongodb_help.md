@@ -2,6 +2,23 @@
 
 ## Installation 
 
+Run the following on a root shell:
+```
+cat >/etc/yum.repos.d/mongodb.repo <<EOL
+[mongodb-org-5.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/5.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+EOL
+
+yum install -y mongodb-org
+
+systemctl start mongod
+
+systemctl enable mongod
+```
 
 ## Authenticate mode setup
 
@@ -24,8 +41,6 @@ For installation instructions, see
 https://docs.mongodb.com/mongodb-shell/install/
 ================
 ```
-
-## Setup For Authentication Mode
 
 First we need to switch to the admin database, we do this with the following command:
 ```
