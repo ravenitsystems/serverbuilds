@@ -3,7 +3,7 @@
 ## Installation 
 
 
-## Command line Tool
+## Authenticate mode setup
 
 To run the command line utility type
 ```
@@ -63,7 +63,7 @@ Group=mongod
 Environment="OPTIONS= --auth -f /etc/mongod.conf"
 Environment="MONGODB_CONFIG_OVERRIDE_NOFORK=1"
 EnvironmentFile=-/etc/sysconfig/mongod
-ExecStart=/usr/bin/mongod $OPTIONS
+ExecStart=/usr/bin/mongod \$OPTIONS
 RuntimeDirectory=mongodb
 # file size
 LimitFSIZE=infinity
@@ -93,4 +93,9 @@ Then we restart the services and restart mongodb
 systemctl daemon-reload
 
 systemctl restart mongod
+```
+
+Now the mongo installation will be in authenticate mode and will block commands the current user does not have rights to perform, to log in open the mongo shell and type:
+```
+db.auth('administrator', 'password')
 ```
