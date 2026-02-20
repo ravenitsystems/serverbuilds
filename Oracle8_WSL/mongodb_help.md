@@ -50,11 +50,11 @@ show users
 
 Now we should exit mongo db shell utility to get back to our root SSH prompt, we now need to change the configuration of the mongodb service to enforce authentication.
 ```
-
+cat >/lib/systemd/system/mongod.service <<EOL
 [Service]
 User=mongod
 Group=mongod
-Environment="OPTIONS=-f /etc/mongod.conf"
+Environment="OPTIONS= --auth -f /etc/mongod.conf"
 Environment="MONGODB_CONFIG_OVERRIDE_NOFORK=1"
 EnvironmentFile=-/etc/sysconfig/mongod
 ExecStart=/usr/bin/mongod $OPTIONS
@@ -79,4 +79,10 @@ TasksAccounting=false
 
 [Install]
 WantedBy=multi-user.target
+EOL
+
+systemctl daemon-reload
+
+systemctl restart mongod
+
 ```
