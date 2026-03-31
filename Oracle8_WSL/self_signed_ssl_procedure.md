@@ -32,6 +32,9 @@ rm -f v3.ext
 
 ### Adding a certificate to the linux trusted roots
 
+```
+trust anchor any_local_com.crt
+```
 
 ### Adding a certificate to the Windows trusted roots
 
