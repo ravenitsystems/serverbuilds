@@ -33,6 +33,13 @@ To get into postgresql command line as a super user use `sudo -u postgres psql`
 CREATE DATABASE av2;
 CREATE USER av2_user WITH PASSWORD '<password>';
 grant all privileges on database av2 to av2_user;
+\c av2
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO av2_user;
+
+```
+
+# Creating a test table
+```
 
 ```
 
