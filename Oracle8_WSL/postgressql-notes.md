@@ -28,7 +28,15 @@ systemctl status postgresql-18
 
 To get into postgresql command line as a super user use `sudo -u postgres psql`
 
-# Connecting to the server
+# Creating A Database and User
+```
+CREATE DATABASE av2;
+CREATE USER av2_user WITH PASSWORD '<password>';
+grant all privileges on database av2 to av2_user;
+
+```
+
+
 
 By default a postgres server listens on port 5432
 
