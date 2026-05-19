@@ -18,13 +18,16 @@ This is an example program configuration file `/etc/supervisord.d/av2_schedule.i
 
 ```
 [program:av2_schedule]
+process_name=%(program_name)s_%(process_num)02d
 command=/usr/bin/php85 /var/www/av2_local_com/webroot/artisan schedule:work
 directory=/var/www/av2_local_com/webroot
 user=apache
 autostart=true
 autorestart=true
+numprocs=8
 redirect_stderr=true
 stdout_logfile=/var/log/av2_schedule_log
+stopwaitsecs=3600
 ```
 
 And a second program, this will be standard for the laravel queue and schedule systems `/etc/supervisord.d/av2_queue.ini`
