@@ -39,6 +39,14 @@ Now you should see that the prompt has switched back to the windows prompt meani
 wsl --shutdown
 ```
 
+We need to set the network mode to mirrored so the WSL instance can connect to any HyperV virtual machines, so while we are in windows cmd we configure this.
+```
+(
+echo [wsl2]
+echo networkingMode=mirrored
+) > "%USERPROFILE%\.wslconfig"
+```
+
 Now we go back into the newly restarted WSL subsystem 
 ```
 wsl
