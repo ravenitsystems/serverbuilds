@@ -620,7 +620,7 @@ try {
         throw new Exception("The primary domain is a required parameter");
     }
 
-    \$domain = \$domain . '.local.com';
+    \$domain = \$domain . '.localhost';
 
     // Collect any domain alias to be added to the vhost
     \$alias_list = [];
