@@ -511,7 +511,7 @@ AddType text/html .php
 SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
 <FilesMatch \.(php|phar)$>
 <If "-f %{REQUEST_FILENAME}">
-SetHandler "proxy:unix:/var/opt/remi/php84/run/php-fpm/www.sock|fcgi://localhost"
+SetHandler "proxy:unix:/var/opt/remi/php85/run/php-fpm/www.sock|fcgi://localhost"
 </If>
 </FilesMatch>
 </Directory>
