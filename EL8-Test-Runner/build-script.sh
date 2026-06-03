@@ -93,7 +93,7 @@ chmod +x /opt/chromedriver-linux64/chromedriver
 log "Installing Selenium ${SELENIUM_VERSION}"
 install -d -m 0755 /opt/selenium
 
-cat >/usr/local/bin/download-selenium <<'EOF'
+cat >/usr/bin/download-selenium <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 if [[ $# -ne 1 ]]; then
