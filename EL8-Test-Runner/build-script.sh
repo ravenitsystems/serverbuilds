@@ -110,7 +110,7 @@ mkdir -p /opt/selenium
 wget -q -O "${OUTPUT_PATH}" "${URL}"
 echo "Saved to ${OUTPUT_PATH}"
 EOF
-chmod +x /usr/local/bin/download-selenium
+chmod +x /usr/bin/download-selenium
 
 download-selenium "${SELENIUM_VERSION}"
 
