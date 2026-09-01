@@ -1,4 +1,6 @@
-# Modern Webserver With No Legacy Software
+# Modern Web Server With No Legacy Software
+
+A secure and robust web server stack based on EL10 with no legacy allowances compromising security. This is designed to run production sites as there is no debug tools or any front end builder tools included. 
 
 ## Initial Server Setup
 
