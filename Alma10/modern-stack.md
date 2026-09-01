@@ -38,5 +38,12 @@ dnf -y install https://rpms.remirepo.net/enterprise/remi-release-10.rpm
 
 dnf install -y nano wget bind-utils net-tools git zip unzip tar rsync 
 
+
+```
+
+
+
+```
 dnf update -y
+
 ```
